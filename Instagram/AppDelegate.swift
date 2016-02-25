@@ -13,7 +13,7 @@ import Parse
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
@@ -24,6 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configuration.clientKey = "kjgufytew435rrstydugi876kkjyhtgrefrety754653"
         configuration.server = "https://nameless-coast-65797.herokuapp.com/parse"
     }))
+    
+    
+    if PFUser.currentUser() != nil {
+      let vc = storyboard.instantiateViewControllerWithIdentifier("MainTabBar") as! UITabBarController
+      window?.rootViewController = vc
+    }
     
     return true
   }
