@@ -7,9 +7,22 @@
 //
 
 import UIKit
+import Parse
+
+protocol InstagramCellDelegate {
+  func didPressMore(user: PFUser)
+}
 
 class InstagramCell: UITableViewCell {
   @IBOutlet weak var instagramImageView: UIImageView!
+  
+  var delegate: InstagramCellDelegate?
+  
+  var post: InstagramPost! {
+    didSet {
+      instagramImageView.image = post.image
+    }
+  }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +36,6 @@ class InstagramCell: UITableViewCell {
     }
 
   @IBAction func didPressMore(sender: AnyObject) {
+    delegate?.didPressMore(post.user!)
   }
 }

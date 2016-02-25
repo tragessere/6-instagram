@@ -63,9 +63,16 @@ class SubmitViewController: UIViewController {
   @IBAction func didPressSubmit(sender: AnyObject) {
     if image != nil {
       
+      InstagramPost.postUserImage(image, withCaption: captionTextView.text, withCompletion: {
+        (success: Bool, error: NSError?) -> Void in
+        if success {
+          self.delegate?.didSubmitPhoto(self.image, caption: self.captionTextView.text)
+          self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+          //TODO: Display message
+        }
+      })
       
-      delegate?.didSubmitPhoto(image, caption: captionTextView.text)
-      dismissViewControllerAnimated(true, completion: nil)
     } else {
       //TODO: Display message
     }

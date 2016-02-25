@@ -11,6 +11,35 @@ import Parse
 
 class InstagramPost: NSObject {
 
+  var user: PFUser?
+  var image: UIImage?
+  var caption: String?
+  
+  init(postObject: PFObject) {
+    user = postObject["author"] as? PFUser
+    let imageFile = postObject["picture"] as? PFFile
+    
+    if imageFile != nil {
+      do {
+        try image = UIImage(data: imageFile!.getData())
+      } catch {
+        //do nothing
+      }
+    }
+    
+    caption = postObject["caption"] as? String
+  }
+  
+  class func postsWithArray(array: [PFObject]) -> [InstagramPost] {
+    var posts = [InstagramPost]()
+    
+    for post in array {
+      posts.append(InstagramPost(postObject: post))
+    }
+    
+    return posts
+  }
+  
   class func postUserImage(image: UIImage?, withCaption caption: String? , withCompletion completion: PFBooleanResultBlock?) {
     let post = PFObject(className: "Post")
     

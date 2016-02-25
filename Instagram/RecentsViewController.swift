@@ -7,17 +7,41 @@
 //
 
 import UIKit
+import Parse
 
 class RecentsViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var gradientView: UIView!
 
+  var posts: [InstagramPost]?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
       tableView.delegate = self
       tableView.dataSource = self
+      
+      tableView.rowHeight = UITableViewAutomaticDimension
+      tableView.estimatedRowHeight = UIScreen.mainScreen().bounds.width + 30
+      
+      tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, tabBarController!.tabBar.frame.size.height, 0.0)
+      
+      let query = PFQuery(className: "Post")
+      query.orderByDescending("createdAt")
+      query.includeKey("author")
+      query.limit = 20
+      
+      query.findObjectsInBackgroundWithBlock {
+        (response: [PFObject]?, error: NSError?) -> Void in
+        if response != nil {
+//          print("data: \(response!)")
+          self.posts = InstagramPost.postsWithArray(response!)
+          self.tableView.reloadData()
+        } else {
+          print("error: \(error!.localizedDescription)")
+        }
+      }
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,15 +71,21 @@ class RecentsViewController: UIViewController {
 
 extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, SubmitDelegate {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    if posts != nil {
+      return posts!.count
+    } else {
+      return 0
+    }
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 5
-  }
+//  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//    return 1
+//  }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("instagramCell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("instagramCell", forIndexPath: indexPath) as! InstagramCell
+    
+    cell.post = posts![indexPath.row]
     
     return cell;
   }
