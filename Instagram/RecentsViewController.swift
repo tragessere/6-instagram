@@ -27,29 +27,17 @@ class RecentsViewController: UIViewController {
       
       tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, tabBarController!.tabBar.frame.size.height, 0.0)
       
-      let query = PFQuery(className: "Post")
-      query.orderByDescending("createdAt")
-      query.includeKey("author")
-      query.limit = 20
+      let refreshControl = UIRefreshControl()
+      refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+      tableView.insertSubview(refreshControl, atIndex: 0)
       
-      query.findObjectsInBackgroundWithBlock {
-        (response: [PFObject]?, error: NSError?) -> Void in
-        if response != nil {
-//          print("data: \(response!)")
-          self.posts = InstagramPost.postsWithArray(response!)
-          self.tableView.reloadData()
-        } else {
-          print("error: \(error!.localizedDescription)")
-        }
-      }
+      refresh(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
   
     // MARK: - Navigation
 
@@ -63,6 +51,25 @@ class RecentsViewController: UIViewController {
       }
       
     }
+  
+  func refresh(refreshControl: UIRefreshControl) {
+    let query = PFQuery(className: "Post")
+    query.orderByDescending("createdAt")
+    query.includeKey("author")
+    query.limit = 20
+    
+    query.findObjectsInBackgroundWithBlock {
+      (response: [PFObject]?, error: NSError?) -> Void in
+      if response != nil {
+        //          print("data: \(response!)")
+        self.posts = InstagramPost.postsWithArray(response!)
+        self.tableView.reloadData()
+      } else {
+        print("error: \(error!.localizedDescription)")
+      }
+      refreshControl.endRefreshing()
+    }
+  }
   
 
   @IBAction func didPressAdd(sender: AnyObject) {
@@ -88,6 +95,10 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
     cell.post = posts![indexPath.row]
     
     return cell;
+  }
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    tableView.deselectRowAtIndexPath(indexPath, animated: false)
   }
   
   func didSubmitPhoto(image: UIImage!, caption: String?) {

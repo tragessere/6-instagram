@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: "userDidLogoutNotification", object: nil)
     
     Parse.initializeWithConfiguration(
       ParseClientConfiguration(block: { (configuration: ParseMutableClientConfiguration) -> Void in
@@ -27,11 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     if PFUser.currentUser() != nil {
+      PFUser.currentUser()!.fetchInBackground()
+      
       let vc = storyboard.instantiateViewControllerWithIdentifier("MainTabBar") as! UITabBarController
       window?.rootViewController = vc
     }
     
     return true
+  }
+  
+  func userDidLogout() {
+    let vc = storyboard.instantiateInitialViewController()! as UIViewController
+    window?.rootViewController = vc
   }
 
   func applicationWillResignActive(application: UIApplication) {

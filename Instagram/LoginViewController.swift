@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+      usernameField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,5 +63,15 @@ class LoginViewController: UIViewController {
         print("new user error: \(error!.localizedDescription)")
       }
     }
+  }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    if textField == usernameField {
+      passwordField.becomeFirstResponder()
+    }
+    
+    return true
   }
 }
