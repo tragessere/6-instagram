@@ -14,6 +14,7 @@ class InstagramPost: NSObject {
   var user: PFUser?
   var image: UIImage?
   var caption: String?
+  var createdAt: NSDate?
   
   init(postObject: PFObject) {
     user = postObject["author"] as? PFUser
@@ -28,6 +29,12 @@ class InstagramPost: NSObject {
     }
     
     caption = postObject["caption"] as? String
+    createdAt = postObject.createdAt
+    
+//    let formatter = NSDateFormatter()
+//    formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+//    formatter.dateFormat = "yyyy-MM-d'T'HH:mm:ss.SSS'Z'"
+//    createdAt = formatter.dateFromString(createdAtString!)
   }
   
   class func postsWithArray(array: [PFObject]) -> [InstagramPost] {

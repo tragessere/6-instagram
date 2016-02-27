@@ -74,20 +74,21 @@ class RecentsViewController: UIViewController {
 
   @IBAction func didPressAdd(sender: AnyObject) {
   }
+  
 }
 
-extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, SubmitDelegate {
+extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, SubmitDelegate, InstagramCellHeaderDelegate {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 1
+  }
+  
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     if posts != nil {
       return posts!.count
     } else {
       return 0
     }
   }
-  
-//  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//    return 1
-//  }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("instagramCell", forIndexPath: indexPath) as! InstagramCell
@@ -97,8 +98,24 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
     return cell;
   }
   
+  func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let headerView = InstagramCellHeader(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+    
+    headerView.post = posts![section]
+    headerView.delegate = self
+    
+    return headerView
+  }
+  
+  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: false)
+  }
+  
+  func didPressProfile(user: PFUser?) {
+    if user != nil {
+      print("open profile page")
+    }
   }
   
   func didSubmitPhoto(image: UIImage!, caption: String?) {

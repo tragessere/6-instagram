@@ -14,8 +14,6 @@ class ProfileViewController: UIViewController {
   @IBOutlet weak var profileImageView: UIImageView!
   @IBOutlet weak var usernameLabel: UILabel!
   
-//  var image: UIImage?
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -92,12 +90,11 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    //    let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
     let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
     
     
-//    image = resize(editedImage, newSize: CGSize(width: 500, height: 500))
-    let imageFile = InstagramPost.getPFFileFromImage(editedImage)
+    let image = resize(editedImage, newSize: CGSize(width: 500, height: 500))
+    let imageFile = InstagramPost.getPFFileFromImage(image)
     let user = PFUser.currentUser()
     user?.setObject(imageFile!, forKey: "profile_picture")
     user?.saveInBackgroundWithBlock({
