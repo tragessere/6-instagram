@@ -15,6 +15,8 @@ class RecentsViewController: UIViewController {
 
   var posts: [InstagramPost]?
   
+  var userToSend: PFUser?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,6 +50,9 @@ class RecentsViewController: UIViewController {
       if segue.identifier == "submitSegue" {
         let vc = segue.destinationViewController as! SubmitViewController
         vc.delegate = self
+      } else if segue.identifier == "profileSegue" {
+        let vc = segue.destinationViewController as! ProfilePreviewViewController
+        vc.user = userToSend
       }
       
     }
@@ -114,7 +119,8 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
   
   func didPressProfile(user: PFUser?) {
     if user != nil {
-      print("open profile page")
+      userToSend = user
+      performSegueWithIdentifier("profileSegue", sender: self)
     }
   }
   

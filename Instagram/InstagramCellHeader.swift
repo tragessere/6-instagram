@@ -83,9 +83,7 @@ class InstagramCellHeader: UIView {
   }
 
   func profileTapped(view: AnyObject) {
-    if delegate != nil {
-      delegate?.didPressProfile(post.user)
-    }
+    delegate?.didPressProfile(post.user)
   }
 
 }
