@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import JTSImageViewController
 import Parse
 
 class RecentsViewController: UIViewController {
@@ -83,7 +84,7 @@ class RecentsViewController: UIViewController {
   
 }
 
-extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, SubmitDelegate, InstagramCellHeaderDelegate {
+extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, SubmitDelegate, InstagramCellDelegate, InstagramCellHeaderDelegate {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 1
   }
@@ -100,6 +101,7 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
     let cell = tableView.dequeueReusableCellWithIdentifier("instagramCell", forIndexPath: indexPath) as! InstagramCell
     
     cell.post = posts![indexPath.section]
+    cell.delegate = self
     
     return cell;
   }
@@ -128,5 +130,20 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
   func didSubmitPhoto(image: UIImage!, caption: String?) {
     refresh(refreshControl)
     //TODO: make this do something
+  }
+  
+  func didTapImage(imageView: UIImageView) {
+    let imageInfo = JTSImageInfo()
+    imageInfo.image = imageView.image
+    imageInfo.referenceView = self.parentViewController?.parentViewController?.view
+    
+    let absoluteOrigin = self.parentViewController?.view.convertPoint(imageView.frame.origin, fromView: imageView.superview)
+    var startingFrame = imageView.frame
+    startingFrame.origin = absoluteOrigin!
+    imageInfo.referenceRect = startingFrame
+    
+    let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+    
+    imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
   }
 }

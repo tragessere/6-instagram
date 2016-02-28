@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JTSImageViewController
 import MBProgressHUD
 import Parse
 
@@ -76,7 +77,7 @@ class ProfilePreviewViewController: UIViewController {
   }
 }
 
-extension ProfilePreviewViewController: UITableViewDelegate, UITableViewDataSource {
+extension ProfilePreviewViewController: UITableViewDelegate, UITableViewDataSource, InstagramCellDelegate {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if posts != nil {
       return posts!.count + 1
@@ -100,8 +101,24 @@ extension ProfilePreviewViewController: UITableViewDelegate, UITableViewDataSour
       
       //First row is the profile information, so the instagram cells are offset by 1
       cell.post = posts![indexPath.row - 1]
+      cell.delegate = self
       
       return cell
     }
+  }
+    
+  func didTapImage(imageView: UIImageView) {
+    let imageInfo = JTSImageInfo()
+    imageInfo.image = imageView.image
+    imageInfo.referenceView = self.parentViewController?.parentViewController?.view
+    
+    let absoluteOrigin = self.parentViewController?.view.convertPoint(imageView.frame.origin, fromView: imageView.superview)
+    var startingFrame = imageView.frame
+    startingFrame.origin = absoluteOrigin!
+    imageInfo.referenceRect = startingFrame
+    
+    let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+    
+    imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition.FromOriginalPosition)
   }
 }

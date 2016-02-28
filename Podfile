@@ -7,5 +7,6 @@ target 'Instagram' do
 
 pod 'Parse'
 pod 'MBProgressHUD'
+pod 'JTSImageViewController'
 
 end
