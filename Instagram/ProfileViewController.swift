@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class ProfileViewController: UIViewController {
@@ -90,6 +91,8 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    
     let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
     
     
@@ -103,7 +106,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         self.profileImageView.backgroundColor = UIColor.whiteColor()
         self.profileImageView.image = editedImage
         PFUser.currentUser()!.fetchInBackground()
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
       } else {
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
         print("Error: \(error!.localizedDescription)")
       }
     })

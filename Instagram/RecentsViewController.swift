@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class RecentsViewController: UIViewController {
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var gradientView: UIView!
 
   var posts: [InstagramPost]?
-  
+  var refreshControl: UIRefreshControl!
   var userToSend: PFUser?
   
     override func viewDidLoad() {
@@ -27,10 +27,11 @@ class RecentsViewController: UIViewController {
       tableView.rowHeight = UITableViewAutomaticDimension
       tableView.estimatedRowHeight = UIScreen.mainScreen().bounds.width + 30
       
-      let refreshControl = UIRefreshControl()
+      refreshControl = UIRefreshControl()
       refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
       tableView.insertSubview(refreshControl, atIndex: 0)
       
+      MBProgressHUD.showHUDAddedTo(self.view, animated: true)
       refresh(refreshControl)
     }
 
@@ -65,8 +66,9 @@ class RecentsViewController: UIViewController {
     query.findObjectsInBackgroundWithBlock {
       (response: [PFObject]?, error: NSError?) -> Void in
       if response != nil {
-        //          print("data: \(response!)")
+//        print("data: \(response!)")
         self.posts = InstagramPost.postsWithArray(response!)
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
         self.tableView.reloadData()
       } else {
         print("error: \(error!.localizedDescription)")
@@ -97,7 +99,7 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("instagramCell", forIndexPath: indexPath) as! InstagramCell
     
-    cell.post = posts![indexPath.row]
+    cell.post = posts![indexPath.section]
     
     return cell;
   }
@@ -124,6 +126,7 @@ extension RecentsViewController: UITableViewDelegate, UITableViewDataSource, Sub
   }
   
   func didSubmitPhoto(image: UIImage!, caption: String?) {
+    refresh(refreshControl)
     //TODO: make this do something
   }
 }

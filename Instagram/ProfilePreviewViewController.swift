@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 class ProfilePreviewViewController: UIViewController {
@@ -34,6 +35,7 @@ class ProfilePreviewViewController: UIViewController {
     refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
     tableView.insertSubview(refreshControl, atIndex: 0)
     
+    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     refresh(refreshControl)
   }
   
@@ -68,6 +70,7 @@ class ProfilePreviewViewController: UIViewController {
       } else {
         print("error: \(error!.localizedDescription)")
       }
+      MBProgressHUD.hideHUDForView(self.view, animated: true)
       refreshControl.endRefreshing()
     }
   }

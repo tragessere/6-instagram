@@ -12,10 +12,12 @@ import Parse
 
 class InstagramCell: UITableViewCell {
   @IBOutlet weak var instagramImageView: UIImageView!
+  @IBOutlet weak var captionLabel: UILabel!
   
   var post: InstagramPost! {
     didSet {
       instagramImageView.image = post.image
+      captionLabel.text = post.caption
     }
   }
 

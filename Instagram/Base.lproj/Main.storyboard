@@ -199,15 +199,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="415" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-Ov-abe">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="425" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Om3-Ov-abe">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="instagramCell" rowHeight="384" id="RCe-fJ-Unx" customClass="InstagramCell" customModule="Instagram" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="384"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="instagramCell" rowHeight="412" id="RCe-fJ-Unx" customClass="InstagramCell" customModule="Instagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="412"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RCe-fJ-Unx" id="lgq-ZE-7X4">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="411"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GRD-uf-cw8">
@@ -222,15 +222,25 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlo-qz-cLB">
+                                                    <rect key="frame" x="8" y="375" width="359" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="tlo-qz-cLB" firstAttribute="top" secondItem="GRD-uf-cw8" secondAttribute="bottom" constant="8" id="9tu-Il-dEs"/>
+                                                <constraint firstItem="tlo-qz-cLB" firstAttribute="leading" secondItem="lgq-ZE-7X4" secondAttribute="leadingMargin" id="A5Q-k7-t8O"/>
+                                                <constraint firstItem="tlo-qz-cLB" firstAttribute="trailing" secondItem="lgq-ZE-7X4" secondAttribute="trailingMargin" id="YP3-za-Sib"/>
                                                 <constraint firstItem="GRD-uf-cw8" firstAttribute="leading" secondItem="lgq-ZE-7X4" secondAttribute="leadingMargin" id="Yc2-9P-zMK"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="GRD-uf-cw8" secondAttribute="bottom" constant="8" id="aau-dc-VvW"/>
                                                 <constraint firstItem="GRD-uf-cw8" firstAttribute="trailing" secondItem="lgq-ZE-7X4" secondAttribute="trailingMargin" id="fxR-fY-pic"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="tlo-qz-cLB" secondAttribute="bottom" constant="8" id="gkg-xk-Er7"/>
                                                 <constraint firstItem="GRD-uf-cw8" firstAttribute="top" secondItem="lgq-ZE-7X4" secondAttribute="topMargin" id="vqQ-Dq-lbw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="captionLabel" destination="tlo-qz-cLB" id="3DI-0s-FGC"/>
                                             <outlet property="instagramImageView" destination="GRD-uf-cw8" id="Ypl-yW-hwo"/>
                                         </connections>
                                     </tableViewCell>
@@ -361,35 +371,45 @@
                                             <outlet property="usernameLabel" destination="oeU-Ec-fmH" id="ch7-87-y7g"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="instagramCell" rowHeight="384" id="EJC-a6-03i" customClass="InstagramCell" customModule="Instagram" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300" width="375" height="384"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="instagramCell" rowHeight="412" id="JO1-yI-oVX" customClass="InstagramCell" customModule="Instagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="300" width="375" height="412"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EJC-a6-03i" id="10u-bZ-wYk">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JO1-yI-oVX" id="yOH-Dh-n4N">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="411"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uHd-E2-8oU">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QRn-v6-8sX">
                                                     <rect key="frame" x="8" y="8" width="359" height="359"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="eVg-hj-gF9"/>
-                                                        <constraint firstAttribute="width" secondItem="uHd-E2-8oU" secondAttribute="height" multiplier="1:1" id="tMc-q9-p3V"/>
+                                                        <constraint firstAttribute="width" secondItem="QRn-v6-8sX" secondAttribute="height" multiplier="1:1" id="7Lm-oo-i6V"/>
+                                                        <constraint firstAttribute="height" constant="50" id="NBi-HD-quH"/>
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="eVg-hj-gF9"/>
+                                                            <exclude reference="NBi-HD-quH"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-wL-zAg">
+                                                    <rect key="frame" x="8" y="375" width="359" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="uHd-E2-8oU" firstAttribute="top" secondItem="10u-bZ-wYk" secondAttribute="topMargin" id="5a8-fl-vFy"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="uHd-E2-8oU" secondAttribute="bottom" constant="8" id="KVo-Oz-dtH"/>
-                                                <constraint firstItem="uHd-E2-8oU" firstAttribute="leading" secondItem="10u-bZ-wYk" secondAttribute="leadingMargin" id="df6-tU-ye8"/>
-                                                <constraint firstItem="uHd-E2-8oU" firstAttribute="trailing" secondItem="10u-bZ-wYk" secondAttribute="trailingMargin" id="qdm-9k-Ptl"/>
+                                                <constraint firstItem="eoa-wL-zAg" firstAttribute="trailing" secondItem="yOH-Dh-n4N" secondAttribute="trailingMargin" id="4j1-Uw-e48"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="eoa-wL-zAg" secondAttribute="bottom" constant="8" id="ELm-TQ-BI3"/>
+                                                <constraint firstItem="QRn-v6-8sX" firstAttribute="top" secondItem="yOH-Dh-n4N" secondAttribute="topMargin" id="JQt-1p-HEO"/>
+                                                <constraint firstItem="QRn-v6-8sX" firstAttribute="trailing" secondItem="yOH-Dh-n4N" secondAttribute="trailingMargin" id="Pc9-Dg-qHC"/>
+                                                <constraint firstItem="QRn-v6-8sX" firstAttribute="leading" secondItem="yOH-Dh-n4N" secondAttribute="leadingMargin" id="Z7a-zY-Ik5"/>
+                                                <constraint firstItem="eoa-wL-zAg" firstAttribute="top" secondItem="QRn-v6-8sX" secondAttribute="bottom" constant="8" id="dsK-MC-qIt"/>
+                                                <constraint firstItem="eoa-wL-zAg" firstAttribute="leading" secondItem="yOH-Dh-n4N" secondAttribute="leadingMargin" id="iUT-8J-Gs0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="instagramImageView" destination="uHd-E2-8oU" id="JrZ-XM-twJ"/>
+                                            <outlet property="captionLabel" destination="eoa-wL-zAg" id="Ntz-mR-V3f"/>
+                                            <outlet property="instagramImageView" destination="QRn-v6-8sX" id="S5T-iL-1e8"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

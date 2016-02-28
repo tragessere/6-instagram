@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import Parse
 
 protocol SubmitDelegate {
@@ -104,19 +105,23 @@ class SubmitViewController: UIViewController {
   }
 
   @IBAction func didPressSubmit(sender: AnyObject) {
+    MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     if image != nil {
       
       InstagramPost.postUserImage(image, withCaption: captionTextView.text, withCompletion: {
         (success: Bool, error: NSError?) -> Void in
         if success {
           self.delegate?.didSubmitPhoto(self.image, caption: self.captionTextView.text)
+          MBProgressHUD.hideHUDForView(self.view, animated: true)
           self.dismissViewControllerAnimated(true, completion: nil)
         } else {
+          MBProgressHUD.hideHUDForView(self.view, animated: true)
           //TODO: Display message
         }
       })
       
     } else {
+      MBProgressHUD.hideHUDForView(self.view, animated: true)
       //TODO: Display message
     }
   }
