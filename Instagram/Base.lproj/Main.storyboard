@@ -116,7 +116,7 @@
             </objects>
             <point key="canvasLocation" x="1201" y="-493"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Profile-->
         <scene sceneID="RCX-kn-4CN">
             <objects>
                 <viewController id="twV-yY-J1A" customClass="ProfileViewController" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
@@ -176,7 +176,7 @@
                             <constraint firstItem="stC-Gj-QLK" firstAttribute="centerX" secondItem="7Ln-Z5-sdP" secondAttribute="centerX" id="zaA-t8-W9D"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="bgO-rj-JDs"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile" selectedImage="profile-filled" id="bgO-rj-JDs"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="profileImageView" destination="aXF-gd-yy0" id="FLh-d3-hIG"/>
@@ -556,4 +556,8 @@
             <point key="canvasLocation" x="2404.5" y="450.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="profile" width="25" height="25"/>
+        <image name="profile-filled" width="25" height="25"/>
+    </resources>
 </document>
