@@ -58,6 +58,7 @@ class ProfilePreviewViewController: UIViewController {
   
   func refresh(refreshControl: UIRefreshControl) {
     let query = PFQuery(className: "Post")
+    query.whereKey("author", equalTo: user!)
     query.orderByDescending("createdAt")
     query.includeKey("author")
     query.limit = 20
