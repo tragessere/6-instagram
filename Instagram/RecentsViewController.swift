@@ -27,8 +27,6 @@ class RecentsViewController: UIViewController {
       tableView.rowHeight = UITableViewAutomaticDimension
       tableView.estimatedRowHeight = UIScreen.mainScreen().bounds.width + 30
       
-      tableView.contentInset = UIEdgeInsetsMake(0.0, 0.0, tabBarController!.tabBar.frame.size.height, 0.0)
-      
       let refreshControl = UIRefreshControl()
       refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
       tableView.insertSubview(refreshControl, atIndex: 0)
@@ -48,7 +46,8 @@ class RecentsViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
       if segue.identifier == "submitSegue" {
-        let vc = segue.destinationViewController as! SubmitViewController
+        let nc = segue.destinationViewController as! UINavigationController
+        let vc = nc.topViewController as! SubmitViewController
         vc.delegate = self
       } else if segue.identifier == "profileSegue" {
         let vc = segue.destinationViewController as! ProfilePreviewViewController

@@ -18,6 +18,8 @@ class SubmitViewController: UIViewController {
   @IBOutlet weak var previewImageView: UIImageView!
   @IBOutlet weak var captionTextView: UITextField!
   
+  @IBOutlet weak var previewImageHeightConstraint: NSLayoutConstraint!
+  
   var image: UIImage?
   
   var delegate: SubmitDelegate?
@@ -30,6 +32,15 @@ class SubmitViewController: UIViewController {
     let pictureTapRecognizer = UITapGestureRecognizer(target: self, action: "didPressPicture:")
     previewImageView.userInteractionEnabled = true
     previewImageView.addGestureRecognizer(pictureTapRecognizer)
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillAppear:", name: UIKeyboardWillShowNotification, object: nil)
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillDisappear:", name: UIKeyboardWillHideNotification, object: nil)
+    
+    let backgroundTouchRecognizer = UITapGestureRecognizer(target: self, action: "didTapBackground:")
+    self.view.addGestureRecognizer(backgroundTouchRecognizer)
+    
+    resizePicture(0)
   }
   
   override func didReceiveMemoryWarning() {
@@ -37,6 +48,34 @@ class SubmitViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
+  func keyboardWillAppear(notification: NSNotification) {
+    if let userInfo = notification.userInfo {
+      if let keyboardSize = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
+        resizePicture(keyboardSize.height)
+      }
+    }
+  }
+  
+  func keyboardWillDisappear(notification: NSNotification) {
+    resizePicture(0)
+  }
+  
+  func resizePicture(keyboardHeight: CGFloat) {
+    
+    let bounds = UIScreen.mainScreen().bounds
+    let smallestWidth = bounds.height > bounds.width ? bounds.width : bounds.height
+    
+    if keyboardHeight == 0 {
+      previewImageHeightConstraint.constant = smallestWidth - 16
+    } else {
+      let marginHeights = 38
+      let textFieldHeight = 30
+      var navigationBarHeight = self.navigationController!.navigationBar.frame.height
+      navigationBarHeight += UIApplication.sharedApplication().statusBarFrame.size.height
+      previewImageHeightConstraint.constant = bounds.height - CGFloat(marginHeights) - CGFloat(textFieldHeight) - navigationBarHeight - keyboardHeight
+    }
+    
+  }
   
   /*
   // MARK: - Navigation
@@ -54,6 +93,10 @@ class SubmitViewController: UIViewController {
     vc.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
     
     presentViewController(vc, animated: true, completion: nil)
+  }
+  
+  func didTapBackground(view: AnyObject) {
+    captionTextView.resignFirstResponder()
   }
   
   @IBAction func didPressClose(sender: AnyObject) {
