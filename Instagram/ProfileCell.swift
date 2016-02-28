@@ -18,6 +18,7 @@ class ProfileCell: UITableViewCell {
   
   var user: PFUser! {
     didSet {
+        usernameLabel.text = user.username
         if let imageFile = user["profile_picture"] as? PFFile {
         do {
           try profileImageView.image = UIImage(data: imageFile.getData())
@@ -42,7 +43,6 @@ class ProfileCell: UITableViewCell {
     
     blurProfileImageView.clipsToBounds = true    
     
-    usernameLabel.text = PFUser.currentUser()!.username
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
