@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] Show the username and creation time for each post
-- [ ] After the user submits a new post, show a progress HUD while the post is being uploaded to Parse.
+- [x] After the user submits a new post, show a progress HUD while the post is being uploaded to Parse.
 - [ ] User Profiles:
 - [x] Allow the logged in user to add a profile photo
 - [x] Display the profile photo with each post
@@ -29,10 +29,10 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Creating independent views for easier reuse of cells in multiple pages.
+2. Specifying constraints in views created in code.
 
-## Video Walkthrough 
+## Video Walkthrough - Part 1 
 
 Here's a walkthrough of implemented user stories:
 
@@ -40,9 +40,17 @@ Here's a walkthrough of implemented user stories:
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
+## Video Walkthrough - Part 2
+
+![walkthrough](instagram-demo-2.gif)
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 ## Notes
 
-Describe any challenges encountered while building the app.
+It was difficult trying to get a good library for the image pop out. I spent a while with another one before switching.
+
+Also resizing the submission photo with the keyboard was a bit of a challenge.
 
 ## License
 
